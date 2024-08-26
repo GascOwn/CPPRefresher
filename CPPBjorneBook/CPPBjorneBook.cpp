@@ -6,31 +6,79 @@ using namespace std;
 using std::sort;
 using std::setprecision;
 
+vector<string> split(const string& s) {
+	vector<string> ret;
+	typedef string::size_type string_size;
+	string_size i = 0;
+
+	while (i != s.size()) {
+		while (i != s.size() && isspace(s[i])) ++i; //ignore leading blanks in first iteration
+
+		string_size j = i;
+		while (j != s.size() && !isspace(s[j])) j++; //find end of word
+
+		if (i != j) {
+			ret.push_back(s.substr(i, j - i));
+			i = j;
+		}
+	}
+	return ret;
+}
+
+
+
+void read_and_split() {
+	string s;
+	while (getline(cin, s)) {
+		vector<string> v = split(s);
+		for (vector<string>::size_type i = 0; i != v.size(); ++i) {
+			cout << v[i] << endl;
+		}
+	}
+}
+
+template<class T> 
+	T median(vector<T> v) {
+	typedef typename vector<T>::size_type vec_sz;
+	vec_sz size = v.size();
+	if (size == 0) {
+		throw domain_error("median of an empty vector");
+	}
+	sort(v.begin(), v.end());
+	vec_sz mid = size / 2;
+	return size % 2 == 0 ? (v[mid] + v[mid - 1]) / 2 : v[mid];
+}
+
+
+
+
 int main()
 {
+	string x;
+	vector <string> bottom = split("The quick brown fox jumps over the lazy dog");
 
+	vector<string> ret;
 
-	//lists are implemented as doubly linked lists, so they are not contiguous in memory and do not support random access (i.e. no [] operator)
-	list<Student_info> students;
-	Student_info record;
-	string::size_type maxlen = 0;
+	auto sum_two = [](int a, int b) -> int {return a + b; }; // lambda notation good for closures / callbacks
 
-	cout << "Insert student data: " << endl;
-	while (record.read(cin)) {
-		maxlen = max(maxlen, record.get_name().size());
-		students.push_back(record);
+	cout << sum_two(2, 3) << endl;
+
+	copy(bottom.begin(), bottom.end(), back_inserter(ret));
+
+	for (vector<string>::const_iterator it = ret.begin(); it != ret.end(); ++it) {
+		cout << *it << endl;
 	}
 
-	students.sort(compare);
 
-	//using iterators instead of indices, using pointer notation
-	for (list<Student_info>::const_iterator iter = students.begin(); iter != students.end(); ++iter) {
+	map<string, int> counters;
 
-		cout << iter->get_name() << string(maxlen + 1 - iter->get_name().size(), ' ');
-		double grade = iter->grade();
-		streamsize prec = cout.precision();
-		cout << setprecision(3) << grade << setprecision(prec) << endl;
+	while(cin >> x) {
+		++counters[x]; //increment the counter for the word x
 	}
 
+	for(map<string, int>::const_iterator it = counters.begin(); it != counters.end(); ++it) {
+		cout << it->first << "\t" << it->second << endl;
+	}
+ 
 	return 0;
 }
