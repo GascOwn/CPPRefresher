@@ -25,8 +25,6 @@ vector<string> split(const string& s) {
 	return ret;
 }
 
-
-
 void read_and_split() {
 	string s;
 	while (getline(cin, s)) {
@@ -49,8 +47,13 @@ template<class T>
 	return size % 2 == 0 ? (v[mid] + v[mid - 1]) / 2 : v[mid];
 }
 
-
-
+template<class In, class X> 
+In my_find (In begin, In end, const X& x) {
+	while (begin != end && *begin != x) {
+		++begin;
+	}
+	return begin;
+}
 
 int main()
 {
@@ -69,8 +72,15 @@ int main()
 		cout << *it << endl;
 	}
 
+	list<int> l { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-	map<string, int> counters;
+	list<int>::iterator cosa = my_find(l.begin(), l.end(), 5);
+
+	cout << *cosa << endl;
+
+
+	/*map
+	<string, int> counters;
 
 	while(cin >> x) {
 		++counters[x]; //increment the counter for the word x
@@ -78,7 +88,7 @@ int main()
 
 	for(map<string, int>::const_iterator it = counters.begin(); it != counters.end(); ++it) {
 		cout << it->first << "\t" << it->second << endl;
-	}
+	}*/
  
 	return 0;
 }
