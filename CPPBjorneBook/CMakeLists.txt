@@ -3,7 +3,7 @@
 #
 
 # Add source to this project's executable.
-add_executable (CPPBjorneBook "CPPBjorneBook.cpp" "CPPBjorneBook.h" "Vector.h" "Vector.cpp" "Node.h" "Node.cpp" "Container.h" "Container.cpp" "Shape.h" "Student.h" "Student.cpp"  )
+add_executable (CPPBjorneBook "CPPBjorneBook.cpp" "CPPBjorneBook.h"  "Vector.cpp" "Node.h" "Node.cpp"   "Shape.h" "Student.h" "Student.cpp"   "Vector.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CPPBjorneBook PROPERTY CXX_STANDARD 20)
