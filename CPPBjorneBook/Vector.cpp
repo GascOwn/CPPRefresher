@@ -6,6 +6,7 @@
 using namespace std;
 
 
+
 template<class T> void Vec<T>::create() {
 	data = avail = limit = 0;
 }
@@ -48,3 +49,10 @@ template<class T> void Vec<T>::unchecked_append(const T& val) {
 	alloc.construct(avail++, val);
 }
 
+template<class T> Vec<T>& Vec<T>::operator=(const Vec& rhs) {
+	if (&rhs != this) {
+		uncreate();
+		create(rhs.begin(), rhs.end());
+	}
+	return *this;
+}
